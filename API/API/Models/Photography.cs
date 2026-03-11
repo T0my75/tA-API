@@ -71,8 +71,7 @@ namespace API.Models{
         /// Lista de compras associadas à fotografia
         /// </summary>
 
-        public ICollection<Purchase> ListOfPurchase { get; set; }
-
+        public ICollection<Purchase> ListOfPurchase { get; set; } 
 
     }
 }

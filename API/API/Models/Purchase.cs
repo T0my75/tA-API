@@ -38,7 +38,6 @@ namespace API.Models{
         [ForeignKey(nameof(Buyer))]
         public int BuyerFK { get; set; }
 
-
         /// <summary>
         /// Cliente que efetuou a compra
         /// </summary>
@@ -54,7 +53,6 @@ namespace API.Models{
         /// </summary>
 
         public ICollection<Photography> ListOfPhotos { get; set; }
-
 
     }
 
