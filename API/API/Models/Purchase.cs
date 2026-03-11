@@ -1,4 +1,6 @@
 ﻿using Mono.TextTemplating;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models{
 
@@ -11,7 +13,7 @@ namespace API.Models{
         /// <summary>
         /// PK
         /// </summary>
-
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
@@ -26,6 +28,34 @@ namespace API.Models{
 
         public State State { get; set; }
 
+        /*********************
+         * Relacionamentos 1-N
+         *********************/
+
+        /// <summary>
+        /// Fk para a tabela dos clientes
+        /// </summary>
+        [ForeignKey(nameof(Buyer))]
+        public int BuyerFK { get; set; }
+
+
+        /// <summary>
+        /// Cliente que efetuou a compra
+        /// </summary>
+
+        public MyUser Buyer { get; set; }
+
+        /*********************
+         * Relacionamentos N-M
+         *********************/
+
+        /// <summary>
+        /// Lista de fotografias associadas à compra
+        /// </summary>
+
+        public ICollection<Photography> ListOfPhotos { get; set; }
+
+
     }
 
     /// <summary>
@@ -39,4 +69,5 @@ namespace API.Models{
         Delivered,
         Closed
     }
+
 }
