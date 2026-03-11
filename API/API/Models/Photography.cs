@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models{
@@ -18,30 +19,37 @@ namespace API.Models{
         /// <summary>
         /// Nome associado à fotografia
         /// </summary>
-
-        public string Title { get; set; }
+        [StringLength(50)]
+        [Display(Name ="Título")]
+        [Required(ErrorMessage ="{0} é de preenchimento obrigatório")]
+        public string Title { get; set; } = string.Empty;
 
         /// <summary>
         /// Descrição (opcional) da fotografia
         /// </summary>
-
-        public string Discription { get; set; }
+        [StringLength(300)]
+        [Display(Name = "Descrição")]
+        public string? Discription { get; set; }
 
         /// <summary>
         /// Nome do ficheiro que contém a fotografia
         /// </summary>
 
-        public string File { get; set; }
+        public string File { get; set; } = string.Empty;
 
         /// <summary>
         /// Data em que a fotografia foi tirada
         /// </summary>
-
+        [Display(Name = "Data")]
+        [Required(ErrorMessage = "{0} é de preenchimento obrigatório")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}")]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Preço da venda da fotografia
         /// </summary>
+        [Display(Name ="Preço")]
 
         public decimal Price { get; set; }
 
@@ -54,14 +62,15 @@ namespace API.Models{
         /// </summary>
 
         [ForeignKey(nameof(Category))]
-
+        [Display(Name ="Categoria")]
         public int CategoryFk { get; set; }
 
         /// <summary>
         /// Categoria da fotografia
         /// </summary>
-
-        public Category Category { get; set; }
+        [ValidateNever]
+        [Display(Name ="Categoria")]
+        public Category Category { get; set; } = null!;
 
         /*********************
          * Relacionamentos N-M
@@ -71,7 +80,7 @@ namespace API.Models{
         /// Lista de compras associadas à fotografia
         /// </summary>
 
-        public ICollection<Purchase> ListOfPurchase { get; set; } 
+        public ICollection<Purchase> ListOfPurchase { get; set; } = [];
 
     }
 }

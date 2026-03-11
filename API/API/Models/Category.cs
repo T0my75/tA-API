@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models{
@@ -18,8 +19,10 @@ namespace API.Models{
         /// <summary>
         /// Nome da categoria
         /// </summary>
-
-        public string Name { get; set; }
+        [StringLength(30)]
+        [Display(Name = "Nome da Categoria")]
+        [Required(ErrorMessage = "{0} é de preenchimento obrigatório")]
+        public string Name { get; set; } = null!;
 
         /*********************
          * Relacionamentos 1-N
@@ -28,8 +31,8 @@ namespace API.Models{
         /// <summary>
         /// Lista de fotografias que uma  categoria tem
         /// </summary>
-
-        public ICollection<Photography> ListOfPhotos { get; set; }
+        [ValidateNever]
+        public ICollection<Photography> ListOfPhotos { get; set; } = [];
 
     }
 }
