@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Data;
 using API.Models;
+using API.Models.ViewModels;
 
 namespace API.Controllers
 {
@@ -23,9 +24,20 @@ namespace API.Controllers
 
         // GET: api/Photos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Photography>>> GetPhotos()
-        {
-            return await _context.Photos.ToListAsync();
+        public async Task<ActionResult<IEnumerable<PhotosDTO>>> GetPhotos(){
+
+            var listaFotos = await _context.Photos
+                                           .OrderBy(f => f.Title)
+                                           .Select(f => new PhotosDTO
+                                           {
+                                              Id = f.Id,
+                                              Title = f.Title,
+                                              Description = f.Description,
+                                              Image = f.File,
+                                              Category = f.Category.Name,
+                                           })
+                                          .ToListAsync();
+            return listaFotos; 
         }
 
         // GET: api/Photos/5
