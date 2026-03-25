@@ -27,9 +27,9 @@ namespace API.Models{
         /// <summary>
         /// Descrição (opcional) da fotografia
         /// </summary>
-        [StringLength(300)]
+        [StringLength(500)]
         [Display(Name = "Descrição")]
-        public string? Discription { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Nome do ficheiro que contém a fotografia
